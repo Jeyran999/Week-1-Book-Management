@@ -1,5 +1,6 @@
 const express = require("express");
 const bookRouter = require("./routes/book.routes");
+const errorHandler = require("./middlewares/error.middleware");
 const app = express();
 
 app.use(express.json());
@@ -10,4 +11,5 @@ app.get("/", (req, res) => {
   });
 });
 app.use("/books", bookRouter);
+app.use(errorHandler)
 module.exports = app;
