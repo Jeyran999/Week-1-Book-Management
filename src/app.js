@@ -1,9 +1,14 @@
+require("dotenv").config();
 const express = require("express");
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("../src/config/swagger");
 const bookRouter = require("./routes/book.routes");
 const errorHandler = require("./middlewares/error.middleware");
 const app = express();
 
 app.use(express.json());
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.get("/", (req, res) => {
   res.json({
@@ -11,5 +16,6 @@ app.get("/", (req, res) => {
   });
 });
 app.use("/books", bookRouter);
-app.use(errorHandler)
+app.use(errorHandler);
+
 module.exports = app;
