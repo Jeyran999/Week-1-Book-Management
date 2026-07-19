@@ -6,8 +6,16 @@ const create = async (bookData) => {
   return await Book.create(bookData);
 };
 
-const findAll = async () => {
-  return await Book.find().populate("author").populate("category");
+const findAll = async (page, limit, sortBy, order) => {
+  const skip = (page - 1) * limit;
+
+  const sortOrder = order === "asc" ? 1 : -1;
+  return await Book.find()
+    .populate("author")
+    .populate("category")
+    .sort({ [sortBy]: sortOrder })
+    .skip(skip)
+    .limit(limit);
 };
 
 const findById = async (id) => {

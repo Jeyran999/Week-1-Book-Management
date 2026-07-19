@@ -6,8 +6,8 @@ const createBook = async (bookData) => {
   return toBookDto(book);
 };
 
-const getAllBooks = async () => {
-  const books = await bookRepository.findAll();
+const getAllBooks = async (page, limit, sortBy, order) => {
+  const books = await bookRepository.findAll(page, limit, sortBy, order);
   return books.map(toBookDto);
 };
 
