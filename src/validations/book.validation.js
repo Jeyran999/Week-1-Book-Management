@@ -29,7 +29,27 @@ const createBookSchema = Joi.object({
   category: Joi.string().required().messages({
     "string.empty": "Category is required",
     "any.required": "Category is required",
-  })
+  }),
 });
 
-module.exports = {createBookSchema}
+const updateBookSchema = Joi.object({
+  title: Joi.string().trim().min(2).messages({
+    "string.empty": "Title cannot be empty",
+    "string.min": "Title must be at least 2 characters long",
+  }),
+  description: Joi.string().trim().optional(),
+  isbn: Joi.string().trim().messages({
+    "string.empty": "ISBN cannot be empty",
+  }),
+  publishedYear: Joi.number().integer().min(0).optional().messages({
+    "number.base": "Published year must be a number",
+    "number.min": "Published year cannot be negative",
+  }),
+  stock: Joi.number().integer().min(0).messages({
+    "number.base": "Stock must be a number",
+    "number.min": "Stock cannot be negative",
+  }),
+  author: Joi.string(),
+  category: Joi.string(),
+});
+module.exports = { createBookSchema, updateBookSchema };

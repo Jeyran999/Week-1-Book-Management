@@ -1,7 +1,10 @@
 const express = require("express");
 const bookController = require("../controllers/book.controller");
 const validate = require("../middlewares/validate.middleware");
-const { createBookSchema } = require("../validations/book.validation");
+const {
+  createBookSchema,
+  updateBookSchema,
+} = require("../validations/book.validation");
 
 const bookRouter = express.Router();
 
@@ -88,7 +91,7 @@ bookRouter.get("/:id", bookController.getBookById);
  *       404:
  *         description: Book not found
  */
-bookRouter.put("/:id", bookController.updateBook);
+bookRouter.put("/:id", validate(updateBookSchema), bookController.updateBook);
 /**
  * @swagger
  * /books/{id}:

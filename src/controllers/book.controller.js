@@ -20,9 +20,6 @@ const getAllBooks = async (req, res, next) => {
 
     const books = await bookService.getAllBooks(page, limit, sortBy, order);
 
-    if (books.length === 0)
-      return res.status(404).json({ message: "No book found" });
-
     return res.status(200).json({ books });
   } catch (error) {
     next(error);
